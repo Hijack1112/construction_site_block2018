@@ -38,4 +38,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
+    <name>javaee-advanced-doIt-adambien</name>
+    <description>Fully implemented Tutorial from the Adam Bien Series "Effective Java (advanced)".</description>
 </project>

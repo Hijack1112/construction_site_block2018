@@ -21,4 +21,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
+    <name>exception-unwrapper-adambien</name>
+    <description>Unwraps an EJB Exception to have fully control over the Exception.
+"Microservices Simplify Exception Handling in JAX-RS and Java EE"
+https://www.youtube.com/watch?v=yA1gKg-FvJM</description>
 </project>

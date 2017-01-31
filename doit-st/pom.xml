@@ -53,4 +53,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <name>javaee-advanced-doIt-st-adambien</name>
+    <description>Fully implemented Test Project for the "doit" Project from the Adam Bien Series "Effective Java (advanced)"</description>
 </project>

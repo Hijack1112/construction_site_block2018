@@ -40,4 +40,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
+    <description>Minimal REST Setup, Best Practice. Implentation according to "43_Simplicity- The Java EE-stic Way Of Coding-HD" from the "Effective Java (advanced)" Series by Adam Bien</description>
+    <name>simple-rest-adambien</name>
 </project>
