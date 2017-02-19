@@ -1,6 +1,9 @@
 package com.darktower.worldpresenter.business.timezones.boundary;
 
+import com.darktower.worldpresenter.business.timezones.entity.Continent;
 import com.darktower.worldpresenter.business.timezones.entity.Country;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,18 +15,31 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class CountryManager {
 
-//    @PersistenceContext
-//    EntityManager em;
+    @PersistenceContext
+    EntityManager em;
 
-//    public void save(Country country) {
-//        this.em.persist(country);
-//    }
-//
-//    public Country findById(int id) {
-//        return this.em.find(Country.class, id);
-//    }
-    
-    
+    public void save(Country country) {
+//        Country country = new Country(Continent.EUROPE, "Deutschland");
+        
+//        System.out.println("save country = " + country);
+        this.em.merge(country);
+    }
 
+    public Country find(int id) {
+        return this.em.find(Country.class, id);
+    }
+
+    public List<Country> getAll() {
+//        List<Country> listCountries = new ArrayList<>();
+//        listCountries.add(find(42));
+//        return listCountries;
+        return this.em.createNamedQuery(Country.findAll).getResultList();
+    }
+
+    public void delete(int id) {
+        Country reference = this.em.getReference(Country.class, id);
+        System.out.println("id= " + id);
+        this.em.remove(reference);
+    }
 
 }

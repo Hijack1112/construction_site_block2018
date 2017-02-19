@@ -5,11 +5,15 @@ import com.darktower.worldpresenter.business.timezones.entity.Country;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -19,34 +23,29 @@ import javax.ws.rs.PathParam;
 @Path("countries")
 public class CountriesRessource {
 
-    @GET
-    public List<Country> getAll() {
-        List<Country> listCountries = new ArrayList<>();
-        listCountries.add(find(42));
-        return listCountries;
+    @Inject
+    CountryManager cm;
+
+    @POST
+    public void save(Country country) {
+        this.cm.save(country);
     }
 
     @GET
     @Path("{id}")
     public Country find(@PathParam("id") int id) {
-        Country country = new Country(Continent.EUROPE, "Deutschland with Id " + id);
-        return country;
+        return this.cm.find(id);
     }
-    
+
+    @GET
+    public List<Country> getAll() {
+        return this.cm.getAll();
+    }
+
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") int id) {
-        System.out.println("delete id = " + id);
+        this.cm.delete(id);
     }
-    
-    @POST
-    public void save(Country country) {
-        System.out.println("save country = " + country);
-    }
-    
-    
-    
-    
-    
 
 }
