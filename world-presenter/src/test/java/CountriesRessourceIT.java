@@ -34,49 +34,37 @@ public class CountriesRessourceIT {
     public void init() {
         this.client = ClientBuilder.newClient();
         this.wt = this.client.target("http://localhost:8080/world-presenter-1.0/api/countries");
-        basic();
-        save();
+
     }
 
+    @Test
     public void basic() {
         Response resp = this.wt.request(MediaType.APPLICATION_JSON).get();
         assertThat(resp.getStatus(), is(200));
-    }
 
-    @Test
-    public void save() {
-
+        //save
         JsonObjectBuilder countryBuilder = Json.createObjectBuilder();
         JsonObject country = countryBuilder.add("continent", Continent.EUROPE.toString()).add("name", "Deutschland").build();
-        Response resp = this.wt.request().post(Entity.json(country));
-        assertThat(resp.getStatus(), is(204));
-    }
+        resp = this.wt.request().post(Entity.json(country));
+        String headerString = resp.getHeaderString("Location");
+        System.out.println("headerString = " + headerString);
+        assertThat(resp.getStatus(), is(201));
 
-    @Test
-    //Testing GET with Parameter
-    public void find() {
-        JsonObject country = this.wt.path("42").request(MediaType.APPLICATION_JSON).get(JsonObject.class);
-        assertTrue(country.getString("name").contains("42"));
-    }
+        //find
+        country = this.wt.path("1").request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+        assertTrue(country.getString("name").contains("Deutsch"));
 
-    @Test
-    //Testing GET
-    public void getAll() {
-        //Get All
-        Response resp = this.wt.request(MediaType.APPLICATION_JSON).get();
+        //getAll
+        resp = this.wt.request(MediaType.APPLICATION_JSON).get();
         JsonArray allCountries = resp.readEntity(JsonArray.class);
         assertFalse(allCountries.isEmpty());
-        JsonObject country = allCountries.getJsonObject(0);
+        country = allCountries.getJsonObject(0);
         assertNotNull(country);
         assertTrue(country.getString("name").startsWith("Deutsch"));
-    }
 
-    @Test
-    //Testing DELETE with Parameter
-    public void delete() {
-        //automatically id generated from save()
-        Response resp = this.wt.path("1").request(MediaType.APPLICATION_JSON).delete();
-        assertThat(resp.getStatus(), is(204));
+        //delete
+//        resp = this.wt.path("1").request(MediaType.APPLICATION_JSON).delete();
+//        assertThat(resp.getStatus(), is(204));
     }
 
 }

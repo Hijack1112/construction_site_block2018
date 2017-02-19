@@ -2,6 +2,7 @@ package com.darktower.worldpresenter.business.timezones.boundary;
 
 import com.darktower.worldpresenter.business.timezones.entity.Continent;
 import com.darktower.worldpresenter.business.timezones.entity.Country;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -13,7 +14,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -27,8 +31,13 @@ public class CountriesRessource {
     CountryManager cm;
 
     @POST
-    public void save(Country country) {
-        this.cm.save(country);
+    public Response save(Country country,@Context UriInfo info) {
+        Country saved = this.cm.save(country);
+        int id = saved.getId();
+        System.out.println("id = " + id);
+        //for Junit test
+        URI uri = info.getAbsolutePathBuilder().path("/" + id).build();
+        return Response.created(uri).build();
     }
 
     @GET

@@ -2,11 +2,15 @@ package com.darktower.worldpresenter.business.timezones.boundary;
 
 import com.darktower.worldpresenter.business.timezones.entity.Continent;
 import com.darktower.worldpresenter.business.timezones.entity.Country;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -18,11 +22,8 @@ public class CountryManager {
     @PersistenceContext
     EntityManager em;
 
-    public void save(Country country) {
-//        Country country = new Country(Continent.EUROPE, "Deutschland");
-        
-//        System.out.println("save country = " + country);
-        this.em.merge(country);
+    public Country save(Country country) {
+        return this.em.merge(country);
     }
 
     public Country find(int id) {
