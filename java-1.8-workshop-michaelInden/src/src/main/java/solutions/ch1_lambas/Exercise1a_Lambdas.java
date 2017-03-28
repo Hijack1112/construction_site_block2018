@@ -16,11 +16,12 @@ public class Exercise1a_Lambdas
     
     public static void main(String[] args)
     {
-        // final LongBinaryOperator v1 = (long x, Long y) -> { return x + y; };                     
+         final LongBinaryOperator v1 = (long x, long y) -> { return x + y; };                     
         final LongBinaryOperator v2 = (long x, long y) -> { return x + y; };                 
         final LongBinaryOperator v3 = (long x, long y) -> x + y;                            
-        // final LongBinaryOperator v4 = (long x, y) -> x + y;                                 
+//         final LongBinaryOperator v4 = (long x, y) -> x + y;                                 
         final LongBinaryOperator v5 = (x, y) -> x + y;                                      
-        // final LongBinaryOperator v6 = x, y -> x + y;  
+//         final LongBinaryOperator v6 = x, y -> x + y;  
+        
     }
 }
